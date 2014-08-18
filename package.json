@@ -1,0 +1,29 @@
+{
+  "name": "luvit-directory",
+  "version": "0.1.0",
+  "description": "Serve directory listings with luvit.io and Utopia",
+  "main": "init.lua",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:luvitrocks/luvit-directory.git"
+  },
+  "keywords": [
+    "luvit",
+    "utopia",
+    "lua",
+    "middleware",
+    "directory",
+    "root",
+    "listings",
+    "server"
+  ],
+  "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luvitrocks/luvit-directory/issues"
+  },
+  "homepage": "https://github.com/luvitrocks/luvit-directory"
+}
