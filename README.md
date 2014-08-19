@@ -34,7 +34,7 @@ This is the method of getting the override value from the request. String value 
 
 ## Examples
 
-##### 1. Override using a header
+### 1. Override using a header
 
 ```lua
 local utopia = require('luvit-utopia')
@@ -61,7 +61,7 @@ function onload () {
 }
 ```
 
-##### 2. Override using a query value
+### 2. Override using a query value
 
 ```lua
 local utopia = require('luvit-utopia')
