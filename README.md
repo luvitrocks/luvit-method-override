@@ -1,11 +1,11 @@
-# luvit-directory
+# luvit-method-override
 
-Middleware for [luvit.io](http://luvit.io) and [Utopia](https://github.com/luvitrocks/luvit-utopia) that serves pages that contain directory listings for a given path.
+Middleware for [luvit.io](http://luvit.io) and [Utopia](https://github.com/luvitrocks/luvit-utopia) that lets you use HTTP verbs such as ``PUT`` or ``DELETE`` in places where the client doesn't support it.
 
 ## Install
 
 ```bash
-npm install luvit-directory
+npm install luvit-method-override
 ```
 
 If you're not familiar with [npm](https://www.npmjs.org/) check this out:
@@ -14,29 +14,72 @@ If you're not familiar with [npm](https://www.npmjs.org/) check this out:
 
 ## API
 
-### ``directory(root, options)``
+**NOTE** It is very important that this module is used before any module that needs to know the method of the request.
 
-Serve directory listings with the given `root` path
+### ``methodOverride(getter)``
+
+Middleware function to override the ``req.method`` property with a new value. This value will be pulled from the provided ``getter``.
 
 ### Options
 
-- ``hidden`` - display hidden dot files, defaults to ``false``
-- ``filter`` - apply custom filter function to files, defaults to ``false``
+- ``getter`` - the string getter to use to look up the overridden request method for the request, default ``X-HTTP-Method-Override``
 
-## Example
+### Getter
+
+This is the method of getting the override value from the request. String value should be provided, it is used to look up the method with the following rules:
+
+- if the string starts with ``X-``, then it is treated as the name of a header and that header is used for the method override. If the request contains the same header multiple times, the first occurrence is used
+
+- all other strings are treated as a ``key`` in the URL query string
+
+## Examples
+
+##### 1. Override using a header
 
 ```lua
 local utopia = require('luvit-utopia')
-local directory = require('luvit-directory')
-local path = require('path')
+local methodOverride = require('luvit-method-override')
 
 local app = utopia:new()
 
-local publicDir = path.join(__dirname, 'public')
-
-app:use(directory(publicDir))
+app:use(methodOverride('X-HTTP-Method-Override'))
 
 app:listen(8080)
+```
+
+Example call on client:
+
+```javascript
+var xhr = new XMLHttpRequest();
+xhr.onload = onload;
+xhr.open('POST', '/resource', true);
+xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
+xhr.send();
+
+function onload () {
+  alert('got response: ' + this.responseText);
+}
+```
+
+##### 2. Override using a query value
+
+```lua
+local utopia = require('luvit-utopia')
+local methodOverride = require('luvit-method-override')
+
+local app = utopia:new()
+
+app:use(methodOverride('_method'))
+
+app:listen(8080)
+```
+
+Example call with query override using HTML form:
+
+```html
+<form method="POST" action="/resource?_method=DELETE">
+	<button type="submit">Delete resource</button>
+</form>
 ```
 
 ## License

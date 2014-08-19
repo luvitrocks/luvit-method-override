@@ -1,29 +1,30 @@
 {
-  "name": "luvit-directory",
+  "name": "luvit-method-override",
   "version": "0.1.0",
-  "description": "Serve directory listings with luvit.io and Utopia",
+  "description": "Override HTTP verbs middleware for for luvit.io and Utopia",
   "main": "init.lua",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com:luvitrocks/luvit-directory.git"
+    "url": "git://github.com:luvitrocks/luvit-method-override.git"
   },
   "keywords": [
     "luvit",
     "utopia",
     "lua",
+    "http",
     "middleware",
-    "directory",
-    "root",
-    "listings",
+    "method",
+    "REST",
+    "override",
     "server"
   ],
   "author": "Dmitri Voronianski <dmitri.voronianski@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/luvitrocks/luvit-directory/issues"
+    "url": "https://github.com/luvitrocks/luvit-method-override/issues"
   },
-  "homepage": "https://github.com/luvitrocks/luvit-directory"
+  "homepage": "https://github.com/luvitrocks/luvit-method-override"
 }
