@@ -1,3 +1,6 @@
+local URL = require('url')
+local qs = require('querystring')
+
 -- helper to find elements by its values
 local function _indexOf (target, field)
 	if type(target) == 'string' then
@@ -42,30 +45,36 @@ local function _supportMethod (method)
 	return _indexOf(methods, method) ~= nil
 end
 
+-- create a getter for a given string
+local function _createGetter (key)
+	return function (req, res)
+		if _indexOf(key:upper(), 'X-') == 1 then
+			return req.headers[key]:lower()
+		else
+			local parsedURL = URL.parse(req.url)
+			local query = querystring.parse(parsedURL.query)
+			return query[key]
+		end
+
+	end
+end
+
 -- provides faux http method support
 -- pass optional key param to use when checking for a method override, defaults to '_method'
 local function methodOverride (key)
-	key = key or '_method'
+	key = key or 'X-HTTP-Method-Override'
 
-	return function (req, res, follow)
+	return function (req, res, nxt)
 		req.originalMethod = req.originalMethod or req.method
 
-		local method
-
-		if req.body and type(req.body) == 'table' and req.body[key] ~= nil then
-			method = req.body[key]:lower()
-			req.body[key] = nil
-		end
-
-		if req.headers['x-http-method-override'] then
-			method = req.headers['x-http-method-override']:lower()
-		end
+		local get = _createGetter(key)
+		local method = get(req, res)
 
 		if _supportMethod(method) then
 			req.method = method:upper()
 		end
 
-		follow()
+		nxt()
 	end
 end
 
