@@ -1,6 +1,6 @@
 {
   "name": "luvit-method-override",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Override HTTP verbs middleware for for luvit.io and Utopia",
   "main": "init.lua",
   "scripts": {

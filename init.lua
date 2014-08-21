@@ -52,10 +52,14 @@ local function _createGetter (key)
 			return req.headers[key:lower()] or ''
 		else
 			local parsedURL = URL.parse(req.url)
-			local query = querystring.parse(parsedURL.query)
-			return query[key]
-		end
 
+			if parsedURL.query and parsedURL.query ~= '' then
+				local query = qs.parse(parsedURL.query)
+				return query[key]
+			end
+
+			return ''
+		end
 	end
 end
 
