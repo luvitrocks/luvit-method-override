@@ -49,7 +49,7 @@ end
 local function _createGetter (key)
 	return function (req, res)
 		if _indexOf(key:upper(), 'X-') == 1 then
-			return req.headers[key]:lower()
+			return req.headers[key:lower()] or ''
 		else
 			local parsedURL = URL.parse(req.url)
 			local query = querystring.parse(parsedURL.query)
@@ -70,7 +70,7 @@ local function methodOverride (key)
 		local get = _createGetter(key)
 		local method = get(req, res)
 
-		if _supportMethod(method) then
+		if _supportMethod(method:lower()) then
 			req.method = method:upper()
 		end
 
