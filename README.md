@@ -1,16 +1,12 @@
-# luvit-method-override
+# method-override
 
-Middleware for [luvit.io](http://luvit.io) and [Utopia](https://github.com/luvitrocks/luvit-utopia) that lets you use HTTP verbs such as ``PUT`` or ``DELETE`` in places where the client doesn't support it.
+> Middleware for [luvit.io](http://luvit.io) and [Utopia](https://github.com/luvitrocks/luvit-utopia) that lets you use HTTP verbs such as ``PUT`` or ``DELETE`` in places where the client doesn't support it.
 
 ## Install
 
 ```bash
-npm install luvit-method-override
+lit install voronianski/method-override
 ```
-
-If you're not familiar with [npm](https://www.npmjs.org/) check this out:
-- https://github.com/voronianski/luvit-npm-example#how-to
-- https://github.com/luvitrocks/luvit-module-boilerplate#whats-npm
 
 ## API
 
@@ -37,10 +33,10 @@ This is the method of getting the override value from the request. String value 
 ### 1. Override using a header
 
 ```lua
-local utopia = require('luvit-utopia')
-local methodOverride = require('luvit-method-override')
+local Utopia = require('utopia')
+local methodOverride = require('method-override')
 
-local app = utopia:new()
+local app = Utopia:new()
 
 app:use(methodOverride('X-HTTP-Method-Override'))
 
@@ -64,10 +60,10 @@ function onload () {
 ### 2. Override using a query value
 
 ```lua
-local utopia = require('luvit-utopia')
-local methodOverride = require('luvit-method-override')
+local Utopia = require('utopia')
+local methodOverride = require('method-override')
 
-local app = utopia:new()
+local app = Utopia:new()
 
 app:use(methodOverride('_method'))
 
@@ -86,7 +82,7 @@ Example call with query override using HTML form:
 
 MIT Licensed
 
-Copyright (c) 2014 Dmitri Voronianski [dmitri.voronianski@gmail.com](mailto:dmitri.voronianski@gmail.com)
+Copyright (c) 2014-2016 Dmitri Voronianski [dmitri.voronianski@gmail.com](mailto:dmitri.voronianski@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
